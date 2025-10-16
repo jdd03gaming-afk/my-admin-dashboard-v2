@@ -1,7 +1,13 @@
-// ✅ তোমার Render API এর বেস URL
+// ==========================
+// ✅ FRONTEND MAIN.JS
+// ==========================
+
+// 🔗 https://my-admin-dashboard-v2.onrender.com/
 const API_BASE = "https://my-admin-dashboard-v2.onrender.com";
 
-// ✅ ইউজার লগইন হ্যান্ডেল করা
+// ==========================
+// 🔐 Login Function
+// ==========================
 async function handleLogin(event) {
   event.preventDefault();
 
@@ -9,7 +15,7 @@ async function handleLogin(event) {
   const password = document.getElementById("password").value.trim();
 
   if (!username || !password) {
-    alert("Please enter username and password!");
+    alert("⚠️ Please enter both username and password!");
     return;
   }
 
@@ -17,55 +23,79 @@ async function handleLogin(event) {
     const res = await fetch(`${API_BASE}/api/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password }),
     });
 
     const data = await res.json();
 
     if (res.ok) {
+      // টোকেন LocalStorage এ রাখো
       localStorage.setItem("token", data.token);
-      alert(`Welcome ${username}!`);
-      window.location.href = "dashboard.html"; // redirect to dashboard page
+      localStorage.setItem("username", username);
+      alert(`✅ Welcome, ${username}! Redirecting to dashboard...`);
+      window.location.href = "dashboard.html";
     } else {
-      alert(data.message || "Invalid credentials!");
+      alert(`❌ ${data.message || "Invalid username or password!"}`);
     }
-  } catch (err) {
-    console.error("Login Error:", err);
-    alert("Server not responding. Please try again later.");
+  } catch (error) {
+    console.error("Login Error:", error);
+    alert("⚠️ Server not responding. Try again later.");
   }
 }
 
-// ✅ Dashboard এ ইউজার ডাটা লোড করা
+// ==========================
+// 📊 Dashboard Load Function
+// ==========================
 async function loadDashboard() {
   const token = localStorage.getItem("token");
+
   if (!token) {
-    alert("Please log in first!");
+    alert("⚠️ Please log in first!");
     window.location.href = "index.html";
     return;
   }
 
   try {
     const res = await fetch(`${API_BASE}/api/userdata`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
+
     const data = await res.json();
 
     if (res.ok) {
       document.getElementById("usernameDisplay").textContent = data.username;
-      document.getElementById("balanceDisplay").textContent = data.balance + "৳";
+      document.getElementById("balanceDisplay").textContent = `${data.balance}৳`;
     } else {
-      alert("Session expired. Please log in again.");
-      localStorage.removeItem("token");
-      window.location.href = "index.html";
+      alert("Session expired! Please log in again.");
+      logout();
     }
-  } catch (err) {
-    console.error("Dashboard Error:", err);
+  } catch (error) {
+    console.error("Dashboard Error:", error);
   }
 }
 
-// ✅ Logout
+// ==========================
+// 🚪 Logout Function
+// ==========================
 function logout() {
   localStorage.removeItem("token");
+  localStorage.removeItem("username");
   window.location.href = "index.html";
 }
-const API_BASE = "https://my-admin-dashboard-v2.onrender.com";
+
+// ==========================
+// 🧠 Auto Bind (Event Attach)
+// ==========================
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("loginForm")) {
+    document.getElementById("loginForm").addEventListener("submit", handleLogin);
+  }
+
+  if (document.getElementById("logoutBtn")) {
+    document.getElementById("logoutBtn").addEventListener("click", logout);
+  }
+
+  if (document.body.id === "dashboardPage") {
+    loadDashboard();
+  }
+});
