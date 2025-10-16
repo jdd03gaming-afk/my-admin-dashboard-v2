@@ -68,3 +68,4 @@ function logout() {
   localStorage.removeItem("token");
   window.location.href = "index.html";
 }
+const API_BASE = "https://my-admin-dashboard-v2.onrender.com";
