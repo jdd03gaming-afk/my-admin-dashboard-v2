@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="login-page" class="page-center">
+    <div class="card login-card">
+      <h1>Admin Login</h1>
+      <label>Username / Email</label>
+      <input id="email" type="text" placeholder="Email or username (if using username trick)" />
+      <label>Password</label>
+      <input id="password" type="password" placeholder="Password" />
+      <button id="loginBtn" onclick="login()">Login</button>
+      <p class="note">Admin will create users from Firebase Console. No signup here.</p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard-page" class="hidden">
+    <aside class="sidebar">
+      <h3>Dashboard Stats</h3>
+      <div class="stat">
+        <div class="stat-number" id="stat-records">0</div>
+        <div class="stat-label">Total Records</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="stat-balance">0.00</div>
+        <div class="stat-label">Current Balance</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="stat-price">0.40</div>
+        <div class="stat-label">Price Per Record</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <h2>Welcome, <span id="userName">user</span></h2>
+        <div class="top-actions">
+          <button class="btn warn" onclick="deleteAll()">Delete All Data</button>
+          <button class="btn danger" onclick="logout()">Logout</button>
+        </div>
+      </div>
+
+      <section class="records-section">
+        <h3>Your Saved Records</h3>
+        <textarea id="recordsBox" readonly placeholder="User records will appear here..."></textarea>
+        <div class="controls">
+          <button class="btn" onclick="copyAll()">Copy All</button>
+          <button class="btn" onclick="editMode()">Edit</button>
+          <button class="btn" id="saveBtn" style="display:none" onclick="saveData()">Save</button>
+        </div>
+      </section>
+
+      <div id="status" class="status"></div>
+    </main>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>

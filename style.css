@@ -1,0 +1,72 @@
+:root{
+  --bg1:#f3f6fb;
+  --accent:#667eea;
+  --accent-dark:#5566d8;
+  --card:#fff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(120deg,#667eea 0%, #764ba2 100%);
+  min-height:100vh;
+  color:#2c3e50;
+}
+
+/* center login */
+.page-center{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+}
+.card{
+  background:var(--card);
+  padding:28px;
+  border-radius:10px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.15);
+  width:360px;
+  max-width:95%;
+}
+.login-card h1{margin:0 0 14px 0;text-align:center}
+.login-card label{display:block;text-align:left;margin-top:10px;font-size:13px;color:#666}
+.login-card input{
+  width:100%;padding:10px;margin-top:6px;border-radius:6px;border:1px solid #e0e6f0;
+}
+.login-card button{
+  width:100%;margin-top:16px;padding:10px;border-radius:6px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;
+}
+.note{font-size:13px;color:#888;margin-top:10px;text-align:center}
+
+/* Dashboard layout */
+.hidden{display:none}
+.dashboard-layout{display:flex}
+.sidebar{
+  width:240px;background:#fff;padding:20px;border-right:1px solid #eef2f7;height:100vh;box-sizing:border-box;
+}
+.stat{background:#fbfbff;border-radius:10px;padding:12px;margin-bottom:14px;box-shadow:inset 0 0 0 1px rgba(102,126,234,0.06)}
+.stat-number{font-size:28px;color:var(--accent);font-weight:700}
+.stat-label{font-size:13px;color:#888;margin-top:6px}
+
+/* main */
+.main{
+  padding:28px;flex:1;min-height:100vh;background:var(--bg1);
+}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.topbar h2{margin:0}
+.top-actions .btn{margin-left:8px}
+.records-section textarea{
+  width:100%;height:300px;border-radius:10px;border:1px solid #e5e9f2;padding:12px;resize:vertical;background:#fff;color:#111
+}
+.controls{margin-top:10px}
+.btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:6px;border:none;cursor:pointer}
+.btn.warn{background:#f39c12}
+.btn.danger{background:#e74c3c}
+.status{margin-top:14px;color:#333;font-size:14px}
+
+/* responsive */
+@media (max-width:800px){
+  .sidebar{display:none}
+  .main{padding:16px}
+  .card{width:92%}
+}
